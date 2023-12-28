@@ -8,7 +8,7 @@ export const multerConfig = {
   },
   fileFilter: (_req: Request, file, cb) => {
     //文件过滤
-    const allowedMimeTypes = ['audio', 'video'];
+    const allowedMimeTypes = ['audio', 'video', 'image/jpeg', 'image/png'];
     if (allowedMimeTypes.some((type) => file.mimetype.startsWith(type))) {
       cb(null, true);
     } else {

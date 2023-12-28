@@ -31,15 +31,16 @@ export class MusicService {
       music.singer = musicFileDto.singer;
       music.cover = files.cover[0].path;
       music.music = files.music[0].path;
-      const insertMusic = await this.musicRepo.save(music);
-      if (isEmpty(insertMusic)) {
+      try {
+        await this.musicRepo.save(music);
+        return '上传成功';
+      } catch (error) {
         await this.deleteFiles(
           map(files, (item) => {
             return item[0].path;
           }),
         );
-      } else {
-        return '上传成功';
+        throw new HttpException('上传失败', HttpStatus.INTERNAL_SERVER_ERROR);
       }
     } else {
       //删除已上传文件

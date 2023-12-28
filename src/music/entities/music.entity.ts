@@ -4,7 +4,7 @@ export class Music {
   @PrimaryGeneratedColumn('increment', { type: 'int' })
   mid: number;
 
-  @Column({ type: 'varchar', length: 24, nullable: false })
+  @Column({ type: 'varchar', length: 255, nullable: false })
   name: string;
 
   @Column({ type: 'varchar', length: 24, nullable: false })
