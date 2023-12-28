@@ -10,6 +10,7 @@ import { JwtService } from '@nestjs/jwt';
 import { isEmpty } from 'lodash';
 import { jwtConstant } from 'src/common/constant/jwtConstant';
 import { NEED_AUTH_KEY } from 'src/common/decorator/need-auth/need-auth.decorator';
+import { IS_PRIVATE_KEY } from 'src/common/decorator/private/private.decorator';
 import { IS_PUBLIC_KEY } from 'src/common/decorator/public/public.decorator';
 import { UserRole } from 'src/user/entities/user.entity';
 import { UserService } from 'src/user/user.service';
@@ -27,12 +28,17 @@ export class JwtAuthGuard implements CanActivate {
       context.getHandler(),
       context.getClass(),
     ]);
-    if (isPublic) {
+
+    const isPrivate = this.reflector.getAllAndOverride<boolean>(
+      IS_PRIVATE_KEY,
+      [context.getHandler()],
+    );
+    if (isPublic && !isPrivate) {
       return true;
     }
     //判断token是否存在
     const request = context.switchToHttp().getRequest<Request>();
-    const token = request.headers['token'] as string;
+    const token = request.headers['musictoken'] as string;
     if (isEmpty(token)) {
       throw new HttpException('Without Auth', HttpStatus.FORBIDDEN);
     }

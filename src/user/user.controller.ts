@@ -6,12 +6,12 @@ import {
   HttpStatus,
   Post,
 } from '@nestjs/common';
-import { NeedAuth } from 'src/common/decorator/need-auth/need-auth.decorator';
+import { Private } from 'src/common/decorator/private/private.decorator';
+import { Public } from 'src/common/decorator/public/public.decorator';
 import { CreateUserDto } from './dto/create-user.dto';
-import { UserRole } from './entities/user.entity';
 import { UserService } from './user.service';
 
-// @Public()
+@Public()
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
@@ -30,9 +30,15 @@ export class UserController {
   }
 
   @Get('/test')
-  @NeedAuth(UserRole.ADMIN)
+  // @NeedAuth(UserRole.ADMIN)
   // @Original()
   test() {
     return 'test';
+  }
+
+  @Get('/isLogin')
+  @Private()
+  isLogin() {
+    return true;
   }
 }
