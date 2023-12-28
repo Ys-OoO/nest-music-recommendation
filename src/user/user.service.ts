@@ -14,12 +14,12 @@ export class UserService {
 
   async login(username: string, password: string) {
     //匹配用户名密码
-    const curUser = await this.userRepo.findOne({ where: { username } });
+    const curUser = await this.findUser(username);
 
-    //成功生成token,失败抛出异常
     if (password !== curUser.password) {
       throw new HttpException('Password Error', HttpStatus.UNAUTHORIZED);
     }
+    //生成token
     const token = this.jwtService.sign({ username: curUser.username });
     return token;
   }
@@ -43,5 +43,10 @@ export class UserService {
     } else {
       return '注册失败';
     }
+  }
+
+  async findUser(username: string): Promise<User> {
+    //匹配用户名密码
+    return await this.userRepo.findOne({ where: { username } });
   }
 }

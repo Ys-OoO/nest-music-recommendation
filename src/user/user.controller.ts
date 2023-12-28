@@ -6,7 +6,9 @@ import {
   HttpStatus,
   Post,
 } from '@nestjs/common';
+import { NeedAuth } from 'src/common/decorator/need-auth/need-auth.decorator';
 import { CreateUserDto } from './dto/create-user.dto';
+import { UserRole } from './entities/user.entity';
 import { UserService } from './user.service';
 
 // @Public()
@@ -28,6 +30,7 @@ export class UserController {
   }
 
   @Get('/test')
+  @NeedAuth(UserRole.ADMIN)
   // @Original()
   test() {
     return 'test';
