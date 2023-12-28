@@ -14,5 +14,5 @@ export class Music {
   cover: string;
 
   @Column({ type: 'varchar', length: 255, nullable: false })
-  video: string;
+  music: string;
 }

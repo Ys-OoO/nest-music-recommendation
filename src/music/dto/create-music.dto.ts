@@ -1,10 +1,6 @@
-import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { IsNotEmpty, IsString } from 'class-validator';
 
 export class CreateMusicDto {
-  @IsNumber()
-  @IsNotEmpty()
-  mid: number;
-
   @IsString()
   @IsNotEmpty()
   name: string;
@@ -12,7 +8,4 @@ export class CreateMusicDto {
   @IsString()
   @IsNotEmpty()
   singer: string;
-
-  @IsString()
-  cover: string;
 }
