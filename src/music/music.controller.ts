@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   Get,
+  Param,
   Post,
   Res,
   UploadedFiles,
@@ -9,6 +10,7 @@ import {
 } from '@nestjs/common';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { NeedAuth } from 'src/common/decorator/need-auth/need-auth.decorator';
+import { Original } from 'src/common/decorator/original/original.decorator';
 import { Public } from 'src/common/decorator/public/public.decorator';
 import { UserRole } from 'src/user/entities/user.entity';
 import { CreateMusicDto } from './dto/create-music.dto';
@@ -51,14 +53,10 @@ export class MusicController {
     return this.musicService.getOne(response, mid);
   }
 
-  @Get('view')
+  @Get('view/:mid')
   @Public()
-  public view(@Res() response) {
-    return this.musicService.view(response, 3);
-  }
-
-  @Get('/all')
-  findAll() {
-    return this.musicService.findAll();
+  @Original()
+  public getCover(@Res() response, @Param('mid') mid: any) {
+    return this.musicService.getCover(response, mid);
   }
 }

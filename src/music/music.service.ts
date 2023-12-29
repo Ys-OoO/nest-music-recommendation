@@ -1,9 +1,4 @@
-import {
-  HttpException,
-  HttpStatus,
-  Injectable,
-  StreamableFile,
-} from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Response } from 'express';
 import * as fs from 'fs';
@@ -110,23 +105,26 @@ export class MusicService {
     }
   }
 
-  async view(response: Response, mid: number) {
+  async getCover(response: Response, mid: number) {
     const music = await this.musicRepo.findOne({
       where: { mid },
     });
+
     if (isEmpty(music)) {
       throw new HttpException('404 NOT_FOUND', HttpStatus.NOT_FOUND);
     } else {
-      const musicFile = fs.createReadStream(join(music.music));
-      return new StreamableFile(musicFile);
-    }
-  }
+      const musicFileStream = fs.createReadStream(join(music.cover));
+      response.setHeader('Content-Type', 'application/octet-stream');
+      musicFileStream.on('end', () => {
+        response.end();
+      });
 
-  async findAll() {
-    const [allMusic, count] = await this.musicRepo.findAndCount();
-    return {
-      allMusic,
-      count,
-    };
+      // 处理流错误事件，如果出现错误，将其发送到响应并结束
+      musicFileStream.on('error', (error) => {
+        console.error('Error reading file stream:', error);
+        response.status(500).send(error.message);
+      });
+      musicFileStream.pipe(response);
+    }
   }
 }
