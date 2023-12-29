@@ -59,4 +59,9 @@ export class MusicController {
   public getCover(@Res() response, @Param('mid') mid: any) {
     return this.musicService.getCover(response, mid);
   }
+
+  @Get('/all')
+  findAll() {
+    return this.musicService.findAll();
+  }
 }

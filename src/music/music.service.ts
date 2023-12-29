@@ -127,4 +127,12 @@ export class MusicService {
       musicFileStream.pipe(response);
     }
   }
+
+  async findAll() {
+    const [allMusic, count] = await this.musicRepo.findAndCount();
+    return {
+      allMusic,
+      count,
+    };
+  }
 }
