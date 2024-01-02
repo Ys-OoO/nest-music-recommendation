@@ -48,9 +48,11 @@ export class MusicController {
     return this.musicService.download(response, mid);
   }
 
-  @Post('getOne')
-  public getOne(@Res() response, @Body('mid') mid: number) {
-    return this.musicService.getOne(response, mid);
+  @Get('/getMusic/:mid')
+  @Public()
+  @Original()
+  public getMusic(@Res() response, @Param('mid') mid: number) {
+    return this.musicService.getMusic(response, mid);
   }
 
   @Get('view/:mid')
@@ -60,6 +62,7 @@ export class MusicController {
     return this.musicService.getCover(response, mid);
   }
 
+  @Public()
   @Get('/all')
   findAll() {
     return this.musicService.findAll();

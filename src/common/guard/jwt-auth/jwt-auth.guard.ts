@@ -28,16 +28,17 @@ export class JwtAuthGuard implements CanActivate {
       context.getHandler(),
       context.getClass(),
     ]);
+    const request = context.switchToHttp().getRequest<Request>();
 
     const isPrivate = this.reflector.getAllAndOverride<boolean>(
       IS_PRIVATE_KEY,
       [context.getHandler()],
     );
+
     if (isPublic && !isPrivate) {
       return true;
     }
     //判断token是否存在
-    const request = context.switchToHttp().getRequest<Request>();
     const token = request.headers['musictoken'] as string;
     if (isEmpty(token)) {
       throw new HttpException('Without Auth', HttpStatus.FORBIDDEN);

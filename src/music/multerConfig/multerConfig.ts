@@ -4,7 +4,7 @@ import { extname, join } from 'path';
 
 export const multerConfig = {
   limits: {
-    fileSize: 1024 * 1024 * 100,
+    fileSize: 1024 * 1024 * 1000,
   },
   fileFilter: (_req: Request, file, cb) => {
     //文件过滤

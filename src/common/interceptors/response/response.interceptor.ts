@@ -5,7 +5,6 @@ import {
   NestInterceptor,
 } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
-import { Response } from 'express';
 import { Observable, map } from 'rxjs';
 import { RETURN_ORIGINAL_KEY } from 'src/common/decorator/original/original.decorator';
 import { ResponseEntity } from './responseEntity';
@@ -25,8 +24,8 @@ export class ResponseInterceptor implements NestInterceptor {
         if (original) {
           return data;
         }
-        const response = context.switchToHttp().getResponse<Response>();
-        response.setHeader('Content-Type', 'application/json;charset=utf-8');
+        // const response = context.switchToHttp().getResponse<Response>();
+        // response.setHeader('Content-Type', 'application/json;charset=utf-8');
         return new ResponseEntity({
           data,
           code: 200,

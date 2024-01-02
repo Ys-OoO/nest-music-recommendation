@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Response } from 'express';
 import * as fs from 'fs';
 import { forEach, isEmpty, map } from 'lodash';
-import { join } from 'path';
+import { extname, join } from 'path';
 import { Repository } from 'typeorm';
 import { CreateMusicDto } from './dto/create-music.dto';
 import { Music } from './entities/music.entity';
@@ -85,23 +85,31 @@ export class MusicService {
     }
   }
 
-  async getOne(response: Response, mid: number) {
+  async getMusic(response: Response, mid: number) {
     const music = await this.musicRepo.findOne({
       where: { mid },
     });
+
     if (isEmpty(music)) {
       throw new HttpException('404 NOT_FOUND', HttpStatus.NOT_FOUND);
     } else {
-      return response.sendFile(music.music, (err) => {
-        if (!err) {
-          return;
-        }
+      const musicFileStream = fs.createReadStream(join(music.music));
+      // response.setHeader('Content-Type', 'application/octet-stream');
+      const type = extname(music.music);
 
-        throw new HttpException(
-          'download failed',
-          HttpStatus.INTERNAL_SERVER_ERROR,
-        );
+      response.setHeader('Content-Type', `video/${type.slice(1)}`);
+
+      musicFileStream.on('end', () => {
+        response.end();
       });
+
+      // 处理流错误事件，如果出现错误，将其发送到响应并结束
+      musicFileStream.on('error', (error) => {
+        console.error('Error reading file stream:', error);
+        response.status(500).send(error.message);
+      });
+
+      musicFileStream.pipe(response);
     }
   }
 
@@ -114,7 +122,12 @@ export class MusicService {
       throw new HttpException('404 NOT_FOUND', HttpStatus.NOT_FOUND);
     } else {
       const musicFileStream = fs.createReadStream(join(music.cover));
-      response.setHeader('Content-Type', 'application/octet-stream');
+      // response.setHeader('Content-Type', 'application/octet-stream');
+      const { cover } = music;
+      const type = extname(cover);
+
+      response.setHeader('Content-Type', `image/${type.slice(1)}`);
+
       musicFileStream.on('end', () => {
         response.end();
       });
