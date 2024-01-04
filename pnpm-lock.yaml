@@ -38,6 +38,9 @@ dependencies:
   cors:
     specifier: ^2.8.5
     version: registry.npmmirror.com/cors@2.8.5
+  fs-extra:
+    specifier: ^11.2.0
+    version: registry.npmmirror.com/fs-extra@11.2.0
   lodash:
     specifier: ^4.17.21
     version: registry.npmmirror.com/lodash@4.17.21
@@ -76,6 +79,9 @@ devDependencies:
   '@types/express':
     specifier: ^4.17.17
     version: registry.npmmirror.com/@types/express@4.17.21
+  '@types/fs-extra':
+    specifier: ^11.0.4
+    version: registry.npmmirror.com/@types/fs-extra@11.0.4
   '@types/jest':
     specifier: ^29.5.2
     version: registry.npmmirror.com/@types/jest@29.5.11
@@ -1504,6 +1510,15 @@ packages:
       '@types/qs': registry.npmmirror.com/@types/qs@6.9.11
       '@types/serve-static': registry.npmmirror.com/@types/serve-static@1.15.5
 
+  registry.npmmirror.com/@types/fs-extra@11.0.4:
+    resolution: {integrity: sha512-yTbItCNreRooED33qjunPthRcSjERP1r4MqCZc7wv0u2sUkzTFp45tgUfS5+r7FrZPdmCCNflLhVSP/o+SemsQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@types/fs-extra/-/fs-extra-11.0.4.tgz}
+    name: '@types/fs-extra'
+    version: 11.0.4
+    dependencies:
+      '@types/jsonfile': registry.npmmirror.com/@types/jsonfile@6.1.4
+      '@types/node': registry.npmmirror.com/@types/node@20.10.5
+    dev: true
+
   registry.npmmirror.com/@types/graceful-fs@4.1.9:
     resolution: {integrity: sha512-olP3sd1qOEe5dXTSaFvQG+02VdRXcdytWLAZsAq1PecU8uqQAhkrnbli7DagjtXKW/Bl7YJbUsa8MPcuc8LHEQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@types/graceful-fs/-/graceful-fs-4.1.9.tgz}
     name: '@types/graceful-fs'
@@ -1552,6 +1567,14 @@ packages:
     resolution: {integrity: sha512-5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@types/json-schema/-/json-schema-7.0.15.tgz}
     name: '@types/json-schema'
     version: 7.0.15
+    dev: true
+
+  registry.npmmirror.com/@types/jsonfile@6.1.4:
+    resolution: {integrity: sha512-D5qGUYwjvnNNextdU59/+fI+spnwtTFmyQP0h+PfIOSkNfpU6AOICUOkm4i0OnSk+NyjdPJrxCDro0sJsWlRpQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@types/jsonfile/-/jsonfile-6.1.4.tgz}
+    name: '@types/jsonfile'
+    version: 6.1.4
+    dependencies:
+      '@types/node': registry.npmmirror.com/@types/node@20.10.5
     dev: true
 
   registry.npmmirror.com/@types/jsonwebtoken@9.0.5:
@@ -3645,6 +3668,17 @@ packages:
       universalify: registry.npmmirror.com/universalify@2.0.1
     dev: true
 
+  registry.npmmirror.com/fs-extra@11.2.0:
+    resolution: {integrity: sha512-PmDi3uwK5nFuXh7XDTlVnS17xJS7vW36is2+w3xcv8SVxiB4NyATf4ctkVY5bkSjX0Y4nbvZCq1/EjtEyr9ktw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/fs-extra/-/fs-extra-11.2.0.tgz}
+    name: fs-extra
+    version: 11.2.0
+    engines: {node: '>=14.14'}
+    dependencies:
+      graceful-fs: registry.npmmirror.com/graceful-fs@4.2.11
+      jsonfile: registry.npmmirror.com/jsonfile@6.1.0
+      universalify: registry.npmmirror.com/universalify@2.0.1
+    dev: false
+
   registry.npmmirror.com/fs-monkey@1.0.5:
     resolution: {integrity: sha512-8uMbBjrhzW76TYgEV27Y5E//W2f/lTFmx78P2w19FZSxarhI/798APGQyuGCwmkNxgwGRhrLfvWyLBvNtuOmew==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/fs-monkey/-/fs-monkey-1.0.5.tgz}
     name: fs-monkey
@@ -3842,7 +3876,6 @@ packages:
     resolution: {integrity: sha512-RbJ5/jmFcNNCcDV5o9eTnBLJ/HszWV0P73bc+Ff4nS/rJj+YaS6IGyiOL0VoBYX+l1Wrl3k63h/KrH+nhJ0XvQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/graceful-fs/-/graceful-fs-4.2.11.tgz}
     name: graceful-fs
     version: 4.2.11
-    dev: true
 
   registry.npmmirror.com/graphemer@1.4.0:
     resolution: {integrity: sha512-EtKwoO6kxCL9WO5xipiHTZlSzBm7WLT627TqC/uVRd0HKmq8NXyebnNYxDoBi7wt8eTWrUrKXCOVaFq9x1kgag==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/graphemer/-/graphemer-1.4.0.tgz}
@@ -4826,7 +4859,6 @@ packages:
       universalify: registry.npmmirror.com/universalify@2.0.1
     optionalDependencies:
       graceful-fs: registry.npmmirror.com/graceful-fs@4.2.11
-    dev: true
 
   registry.npmmirror.com/jsonwebtoken@9.0.2:
     resolution: {integrity: sha512-PRp66vJ865SSqOlgqS8hujT5U4AOgMfhrwYIuIhfKaoSCZcirrmASQr8CX7cUg+RMih+hgznrjp99o+W4pJLHQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/jsonwebtoken/-/jsonwebtoken-9.0.2.tgz}
@@ -6819,7 +6851,6 @@ packages:
     name: universalify
     version: 2.0.1
     engines: {node: '>= 10.0.0'}
-    dev: true
 
   registry.npmmirror.com/unpipe@1.0.0:
     resolution: {integrity: sha512-pjy2bYhSsufwWlKwPc+l3cN7+wuJlK6uz0YdJEOlQDbl6jo/YlPi4mb8agUkVC8BF7V8NuzeyPNqRksA3hztKQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/unpipe/-/unpipe-1.0.0.tgz}

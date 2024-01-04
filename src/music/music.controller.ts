@@ -5,10 +5,14 @@ import {
   Param,
   Post,
   Res,
+  UploadedFile,
   UploadedFiles,
   UseInterceptors,
 } from '@nestjs/common';
-import { FileFieldsInterceptor } from '@nestjs/platform-express';
+import {
+  FileFieldsInterceptor,
+  FileInterceptor,
+} from '@nestjs/platform-express';
 import { NeedAuth } from 'src/common/decorator/need-auth/need-auth.decorator';
 import { Original } from 'src/common/decorator/original/original.decorator';
 import { Public } from 'src/common/decorator/public/public.decorator';
@@ -40,7 +44,40 @@ export class MusicController {
       music: Express.Multer.File;
     },
   ) {
+    console.log(files);
+
     return this.musicService.upload(createMusicDto, files);
+  }
+
+  @Post('/uploadChunk')
+  @UseInterceptors(
+    FileInterceptor('chunk', {
+      limits: {
+        fileSize: 1024 * 1024 * 10,
+      },
+    }),
+  )
+  @NeedAuth(UserRole.ADMIN)
+  uploadChunk(
+    @UploadedFile()
+    chunk: Express.Multer.File,
+    @Body() chunkInfo: any,
+  ) {
+    return this.musicService.uploadChunk(chunk, chunkInfo);
+  }
+
+  @Post('/vertifyFile')
+  @NeedAuth(UserRole.ADMIN)
+  vertifyFile(@Body() fileInfo) {
+    const { fileHash, totalCount, extname } = fileInfo;
+    return this.musicService.vertifyFile(fileHash, totalCount, extname);
+  }
+
+  @Post('/mergeFile')
+  @NeedAuth(UserRole.ADMIN)
+  mergeFile(@Body() fileInfo) {
+    const { fileHash, extname } = fileInfo;
+    return this.musicService.mergeFile(fileHash, extname);
   }
 
   @Post('/donwloadDirect')
