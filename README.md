@@ -17,10 +17,6 @@ Please contribute using [GitHub Flow](https://guides.github.com/introduction/flo
 3. Run the app : `pnpm run dev` . <br/>
 4. You also need [Frontend code](https://github.com/Ys-OoO/react-music-recommendation)
 
-## 👓 Preview
-
-![image](./public/preview.png)
-
 ## 📞 Contacts
 
 - Email： ys0514@yeah.net
